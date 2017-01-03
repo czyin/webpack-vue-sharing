@@ -15,6 +15,16 @@
     <link rel="stylesheet" href="libs/reveal.js-3.3.0/css/reveal.css">
     <link rel="stylesheet" href="libs/reveal.js-3.3.0/css/theme/black.css" id="theme">
     <link rel="stylesheet" href="libs/reveal.js-3.3.0/lib/css/zenburn.css">
+    <style>
+        .reveal h1,
+        .reveal h2,
+        .reveal h3,
+        .reveal h4,
+        .reveal h5,
+        .reveal h6 {
+            text-transform: none;
+        }
+    </style>
 
     <!-- Printing and PDF exports -->
     <script>
@@ -24,6 +34,7 @@
         link.href = window.location.search.match(/print-pdf/gi) ? 'libs/reveal.js-3.3.0/css/print/pdf.css' : 'libs/reveal.js-3.3.0/css/print/paper.css';
         document.getElementsByTagName('head')[0].appendChild(link);
     </script>
+
 
     <!--[if lt IE 9]>
     <script src="lib/js/html5shiv.js"></script>
@@ -37,22 +48,277 @@
         <div class="slides">
             <section>
                 <h1>基于Webpack和Vue的前端工程化实践</h1>
-                <h3></h3>
                 <p>
-                    <small> 尹成志 / <a href="http://github.com/czyin">@czyin</a></small>
-                    <!-- <small>Created by <a href="https://yinchengzhi.com">尹成志</a> / <a href="http://github.com/czyin">@czyin</a></small> -->
-                    <!-- <p>
-                        三部分 基础 我们的选择 在新的开发环境开发效果 将来和问题
-                    </p> -->
+                    <small> 尹成志 </small> <br>
+                    <small> <a href="https://github.com/czyin/webpack-vue-sharing">@czyin/webpack-vue-sharing</a></small>
                 </p>
             </section>
-            <section>Slide 1</section>
-            <section>Slide 2</section>
+            <section>
+                <p>Jquery & Bootstrap</p>
+                <img src="images/jquery-bootstrap.png" alt="">
+                <!-- 资源管理混乱 -->
+                <!-- 开发迭代和维护成本极高 -->
+            </section>
+            <section>
+                <h2>有什么问题？</h2>
+                <!-- <p>可以看到的问题...</p> -->
+                <p class="fragment">依赖管理</p>
+                <p class="fragment">密闭作用域</p>
+                <p class="fragment">JS 同步／异步加载</p>
+                <!-- 这也是为什么一般我们会把script标签放在底部的原因 -->
+            </section>
+            <section>
+                <h2>对静态资源进行高效的组织和管理</h2>
+            </section>
+            <section>
+                <h2>从JS开始讲起</h2>
+                <p class="fragment">缺少包管理系统</p>
+                <p class="fragment">缺少模块系统</p>
+                <!-- 虽然有了 ES6 Modules，但都还无法使用 -->
+                <!-- 这里假设大家都有一些JS基础，来说明前端工具选择的一个思路过程，以及在项目中实践的效果。 最开始会涉及一些基础概念，后面会有代码示例。 -->
+            </section>
+            <section>
+                <h3>模块实现</h3>
+                <pre class="fragment"><code class="hljs" contenteditable>
+    // IIFE & Closure
+    var foo = (function Module() {
+        var something = [1, 2, 3]
+
+        function doSomething() {
+            console.log(something.join(" ! "))
+        }
+
+        return {
+            doSomething: doSomething
+        }
+    })()
+                </code></pre>
+                <!-- 基于IIFE & Closure，实现单例 -->
+            </section>
+            <section>
+                <h3>模块依赖管理器实现</h3>
+                <section>
+                    <pre class="fragment"><code class="hljs" contenteditable>
+    var ModuleManager = (function ModuleManager() {
+        var modules = {}
+        function define(name, deps, impl) {
+            for (var i = 0; i < deps.length; i++) {
+                deps[i] = modules[deps[i]]
+            }
+            modules[name] = impl.apply(impl, deps)
+        }
+        function get(name) {
+            return modules[name]
+        }
+        return {
+            define: define,
+            get: get
+        }
+    })()
+                    </code></pre>
+                </section>
+                <section>
+                    <pre><code class="hljs" contenteditable>
+    ModuleManager.define("bar", [], function() {
+        function hello(who) {
+            return "Let me introduce: " + who
+        }
+        return {
+            hello: hello
+        }
+    })
+                    </code></pre>
+                </section>
+                <section>
+                    <pre><code class="hljs" contenteditable>
+    ModuleManager.define("foo", ["bar"], function(bar) {
+        var hungry = "hippo"
+
+        function awesome() {
+            console.log(bar.hello(hungry).toUpperCase())
+        }
+        return {
+            awesome: awesome
+        }
+    })
+                    </code></pre>
+                </section>
+                <section>
+                    <pre><code class="hljs" contenteditable>
+    var bar = ModuleManager.get("bar")
+    var foo = ModuleManager.get("foo")
+    console.log(bar.hello("hippo")) // Let me introduce: hippo
+    foo.awesome() // LET ME INTRODUCE: HIPPO
+                    </code></pre>
+                </section>
+            </section>
+            <section>
+                <h1>NodeJS / CommonJS</h1>
+                <p class="fragment">exports/require 语法</p>
+                <p class="fragment">NPM</p>
+                <p class="fragment">标准库：文件操作的API等</p>
+            </section>
+            <section>
+                <p>CommonJS/Node Modules Example</p>
+                <pre class="fragment"><code class="hljs" contenteditable>
+    // moduleA.js
+    module.exports = function( value ){
+        return value*2;
+    }
+                </code></pre>
+
+                <pre class="fragment"><code class="hljs" contenteditable>
+    // moduleB.js
+    var multiplyBy2 = require('./moduleA');
+    var result = multiplyBy2( 4 );
+                </code></pre>
+            </section>
+            <section>
+                <h3>前端模块化解决方案</h3>
+                <p class="fragment">AMD/RequireJS</p>
+                <p class="fragment"><strike>CMD/SeaJS</strike></p>
+                <p class="fragment">Browserify</p>
+                <p class="fragment">Webpack</p>
+
+                <!-- AMD/RequireJS: 纯前端解决方案，支持异步加载／动态加载，但是引入新的模块化方案／写法，无法利用现有的npm仓库 -->
+
+                <!-- Browserify: 可以利用现有的大量commonjs规范包／npm仓库，但不支持异步加载／动态加载 -->
+                <!-- Browserify 作者已经明确表示很不幸 Browserify 是不支持异步加载的
+                https://github.com/substack/node-browserify/issues/58#issuecomment-21978224
+                https://github.com/vuejs/vuejs.org/issues/620 -->
+
+                <!-- seajs已死
+                https://github.com/seajs/seajs/issues/1605#issuecomment-149220246 -->
+            </section>
+            <section>
+                <p>AMD/RequireJS Example</p>
+                <pre class="fragment"><code class="hljs" contenteditable>
+    // moduleA.js
+    define('moduleA', ['jquery', './math.js'], function($, math) {
+        //var _ = require('loadsh');
+        var HelloWorldize = function(selector){
+            $(selector).text('hello world');
+        };
+        return HelloWorldize;
+    });
+                </code></pre>
+                <pre class="fragment"><code class="hljs" contenteditable>
+    // main.js
+    requirejs(['moduleA'], function(moduleA) {});
+                </code></pre>
+                <pre class="fragment"><code class="hljs" contenteditable>
+    // index.html
+    <script data-main="main.js" src="lib/require.js"></script>
+                </code></pre>
+                <!-- 解释 异步加载 & 动态加载 -->
+            </section>
+            <section>
+                <h3>Browserify Example</h3>
+                <pre class="fragment"><code class="hljs" contenteditable>
+    $ browserify main.js > bundle.js
+                </code></pre>
+                <pre class="fragment"><code class="hljs" contenteditable>
+    // index.html
+    <script src="bundle.js"></script>
+                </code></pre>
+            </section>
+            <section>
+                <h3>Webpack Example</h3>
+                <!-- 不够！ CSS文件的模块化没有解决 图片 字体呢？ webpack js模块化 静态资源模块化 性能考虑，处理依赖关系 管理依赖 需要工具 有了Webpack 所有静态资源都是模块 Webpack 默认支持CommonJS & AMD -->
+                <!-- 写法 -->
+                <!-- webpack生成的代码示例 -->
+                <!-- 有了Webpack 所有静态资源都是模块 chunk chunk chunk -->
+            </section>
+            <section>
+                <h2>前端框架／UI组件化</h2>
+                <p class="fragment">AngularJS 1.x/2.0</p>
+                <p class="fragment">React</p>
+                <p class="fragment">Vue</p>
+            </section>
+            <section>
+                Vue 单文件组件的写法
+
+            </section>
+            <section>
+                Webpack
+                Loader
+                Plugin
+                Code splitting
+                HMR
+
+                webpack配置文件
+            </section>
+            <section>
+                目录结构 最早也有，比如压缩js 拼接css gulp 清晰的目录结构 src dist
+            </section>
+            <section>
+
+            </section>
+            <section>
+
+            </section>
+            <section>
+
+            </section>
+            <section>
+
+            </section>
+            <section>
+
+            </section>
+            <section>
+                继续优化。。。 ！！整体效率的提升 代码lint mock json-server test ！！其他 npm run script 统一接口 没有注释 放在readme.md 发布
+            </section>
+            <section>
+                ！！感想 工具化的本质还是工具 工具是为了回答问题 首先要理解问题 这一套是针对Webapp类型大中的项目 小项目使用gulp就很方便，gulp是类似于make的构建工具 gulp api简单 ，尤其和webpack相比，十分钟上手
+            </section>
+            <section>
+                谢谢大家
+            </section>
         </div>
     </div>
+    <script src="libs/reveal.js-3.3.0/lib/js/head.min.js"></script>
     <script src="libs/reveal.js-3.3.0/js/reveal.js"></script>
     <script>
-        Reveal.initialize();
+        // More info https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+
+            transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+            // More info https://github.com/hakimel/reveal.js#dependencies
+            dependencies: [{
+                src: 'libs/reveal.js-3.3.0/lib/js/classList.js',
+                condition: function() {
+                    return !document.body.classList;
+                }
+            }, {
+                src: 'libs/reveal.js-3.3.0/plugin/markdown/marked.js',
+                condition: function() {
+                    return !!document.querySelector('[data-markdown]');
+                }
+            }, {
+                src: 'libs/reveal.js-3.3.0/plugin/markdown/markdown.js',
+                condition: function() {
+                    return !!document.querySelector('[data-markdown]');
+                }
+            }, {
+                src: 'libs/reveal.js-3.3.0/plugin/highlight/highlight.js',
+                async: true,
+                callback: function() {
+                    hljs.initHighlightingOnLoad();
+                }
+            }, {
+                src: 'libs/reveal.js-3.3.0/plugin/zoom-js/zoom.js',
+                async: true
+            }, {
+                src: 'libs/reveal.js-3.3.0/plugin/notes/notes.js',
+                async: true
+            }]
+        });
     </script>
 </body>
 

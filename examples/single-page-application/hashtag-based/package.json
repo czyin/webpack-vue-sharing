@@ -1,0 +1,10 @@
+{
+    "name": "hash",
+    "scripts": {
+        "gendb": "node mock/config/gen-db.js",
+        "mock": "json-server mock/db.json -c mock/config/json-server.json"
+    },
+    "devDependencies": {
+        "json-server": "^0.9.4"
+    }
+}

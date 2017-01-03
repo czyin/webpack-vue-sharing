@@ -1,0 +1,17 @@
+{
+    "id1": {
+        "id": "xiao_qiang",
+        "name": "小强",
+        "mail": "xiaoqiang@yundun.com"
+    },
+    "id2": {
+        "id": "xiao_qiang2",
+        "name": "小强2",
+        "mail": "xiaoqiang2@yundun.com"
+    },
+    "id3": {
+        "id": "xiao_qiang3",
+        "name": "小强3",
+        "mail": "xiaoqiang3@yundun.com"
+    }
+}

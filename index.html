@@ -53,25 +53,32 @@
                     <small> <a href="https://github.com/czyin/webpack-vue-sharing">@czyin/webpack-vue-sharing</a></small>
                 </p>
             </section>
+
+
+
+
+
             <section>
-                <p>Jquery & Bootstrap</p>
+                <h2>为什么要工程化？</h2>
+            </section>
+            <section>
+                <h3>Jquery & Bootstrap</h3>
                 <img src="/images/jquery-bootstrap.png" alt="">
                 <!-- 资源管理混乱 -->
                 <!-- 开发迭代和维护成本极高 -->
             </section>
             <section>
-                <h2>有什么问题？</h2>
-                <!-- <p>可以看到的问题...</p> -->
+                <h3>问题...</h3>
                 <p class="fragment">依赖管理</p>
                 <p class="fragment">密闭作用域</p>
                 <p class="fragment">JS 同步／异步加载</p>
                 <!-- 这也是为什么一般我们会把script标签放在底部的原因 -->
             </section>
             <section>
-                <h2>对静态资源进行高效的组织和管理</h2>
+                <h3>对静态资源进行高效的组织和管理</h3>
             </section>
             <section>
-                <h2>从JS开始讲起</h2>
+                <h3>从JS开始讲起</h3>
                 <p class="fragment">缺少包管理系统</p>
                 <p class="fragment">缺少模块系统</p>
                 <!-- 虽然有了 ES6 Modules，但都还无法使用 -->
@@ -152,14 +159,19 @@
                     </code></pre>
                 </section>
             </section>
-            <section data-background="#dddddd">
-                <h1>NodeJS / CommonJS</h1>
+
+
+
+
+
+            <section>
+                <h2>NodeJS / CommonJS</h2>
                 <p class="fragment">exports/require 语法</p>
                 <p class="fragment">NPM</p>
                 <p class="fragment">标准库：文件操作的API等</p>
             </section>
-            <section data-background="#dddddd">
-                <p>CommonJS/Node Modules Example</p>
+            <section>
+                <p>CommonJS/Node Modules 示例</p>
                 <pre class="fragment"><code class="hljs" contenteditable>
     // moduleA.js
     module.exports = function( value ){
@@ -173,7 +185,7 @@
     var result = multiplyBy2( 4 );
                 </code></pre>
             </section>
-            <section data-background="#dddddd">
+            <section>
                 <h3>前端模块化解决方案</h3>
                 <p class="fragment">AMD/RequireJS</p>
                 <p class="fragment"><strike>CMD/SeaJS</strike></p>
@@ -190,8 +202,8 @@
                 <!-- seajs已死
                 https://github.com/seajs/seajs/issues/1605#issuecomment-149220246 -->
             </section>
-            <section data-background="#dddddd">
-                <p>AMD/RequireJS Example</p>
+            <section>
+                <h3>AMD/RequireJS 示例</h3>
                 <pre class="fragment"><code class="hljs" contenteditable>
     // moduleA.js
     define('moduleA', ['jquery', './math.js'], function($, math) {
@@ -213,8 +225,8 @@
                 </code></pre>
                 <!-- 解释 异步加载 & 动态加载 -->
             </section>
-            <section data-background="#dddddd">
-                <h3>Browserify Example</h3>
+            <section>
+                <h3>Browserify 示例</h3>
                 <pre class="fragment"><code class="hljs" contenteditable>
     $ browserify main.js > bundle.js
                 </code></pre>
@@ -224,63 +236,148 @@
     -->
                 </code></pre>
             </section>
-            <section data-background="#dddddd">
-                <h3>Webpack Example</h3>
-                <pre class="fragment"><code class="hljs" contenteditable>
-                </code></pre>
-                <pre class="fragment"><code class="hljs" contenteditable>
-                </code></pre>
-                <pre class="fragment"><code class="hljs" contenteditable>
-                </code></pre>
+            <section>
+                <h3>Webpack</h3>
                 <!-- 不够！ CSS文件的模块化没有解决 图片 字体呢？ webpack js模块化 静态资源模块化 性能考虑，处理依赖关系 管理依赖 需要工具 有了Webpack 所有静态资源都是模块 Webpack 默认支持CommonJS & AMD -->
                 <!-- 写法 -->
                 <!-- webpack生成的代码示例 -->
                 <!-- 有了Webpack 所有静态资源都是模块 chunk chunk chunk -->
             </section>
-            <section data-background="#123456">
+            <section>
+                <h3>一切都是模块</h3>
+                <img src="/images/webpack.png" alt="">
+            </section>
+            <section>
+                <h3>关键概念</h3>
+                <p class="fragment">Entry</p>
+                <p class="fragment">Output</p>
+                <p class="fragment">Loader</p>
+                <p class="fragment">Plugin</p>
+            </section>
+            <section>
+                <h3>豪华套餐</h3>
+                <p class="fragment">code splitting</p>
+                <p class="fragment">webpack-dev-middleware</p>
+                <p class="fragment">webpack-dev-middleware / HMR</p>
+            </section>
+            <section>
+                <h3>Webpack 示例</h3>
+            </section>
+
+
+
+
+
+            <section>
                 <h2>前端框架／UI组件化</h2>
+            </section>
+            <section>
+                <h3>框架选择</h3>
                 <p class="fragment">AngularJS 1.x (star: 54.2k)</p>
                 <p class="fragment">AngularJS 2.x (star: 19.4k)</p>
                 <p class="fragment">React (star: 56.9k)</p>
                 <p class="fragment">Vue 1.x/2.x (star: 38.6k)</p>
             </section>
-            <section data-background="#123456">
-                Vue Example
+            <section>
+                <h3>Vue 示例</h3>
                 <pre class="fragment"><code class="hljs" contenteditable>
+    // html
+    <div id="app">
+        {{ message }}
+    </div>
+                </code></pre>
+                <pre class="fragment"><code class="hljs" contenteditable>
+    // javascript
+    var app = new Vue({
+        el: '#app',
+        data: {
+            message: 'Hello Vue!'
+        }
+    })
                 </code></pre>
             </section>
-            <section data-background="#123456">
-                Vue Component Example
+            <section>
+                <h3>Vue Component 示例</h3>
                 <pre class="fragment"><code class="hljs" contenteditable>
+    // 组件注册
+    Vue.component('my-component', {
+         template: '<div>A custom component!</div>'
+    })
+    // 实例化根实例
+    new Vue({
+         el: '#example'
+    })
+                </code></pre>
+                <pre class="fragment"><code class="hljs" contenteditable>
+    <div id="example">
+        <my-component></my-component>
+    </div>
+                </code></pre>
+                <pre class="fragment"><code class="hljs" contenteditable>
+    <div id="example">
+        <div>A custom component!</div>
+    </div>
                 </code></pre>
             </section>
-            <section data-background="#123456">
-                单文件组件
+            <section>
+                <h3>单文件组件</h3>
                 <img src="/images/vue-component.png" alt="">
             </section>
             <section>
-                Webpack Loader Plugin Code splitting HMR webpack配置文件
-            </section>
-            <section>
-                目录结构 最早也有，比如压缩js 拼接css gulp 清晰的目录结构 src dist
-            </section>
-            <section>
+                <h3>CSS Modules </h3>
+                <section>
+                    <pre><code class="hljs" contenteditable>
+    .danger {
+        color: red;
+    }
 
-            </section>
-            <section>
+    .big {
+        font-size: 38px;
+    }
+                    </code></pre>
+                    <pre><code class="hljs" contenteditable>
+    <p class="danger big"> css modules example </p>
+                    </code></pre>
+                </section>
+                <section>
+                    <pre><code class="hljs" contenteditable>
+    .danger_32osj2w27N {
+        color: red;
+    }
 
+    .big_32osj2w27N {
+        font-size: 38px;
+    }
+                    </code></pre>
+                    <pre><code class="hljs" contenteditable>
+    <p class="danger_32osj2w27N big_32osj2w27N"> css modules example </p>
+                    </code></pre>
+                </section>
             </section>
             <section>
+                <h3>Vue Stack</h3>
+                <p class="fragment">Vue Router</p>
+                <p class="fragment">Vuex</p>
+            </section>
+            <section>
+                <h3>Weex</h3>
+            </section>
 
-            </section>
-            <section>
 
-            </section>
-            <section>
 
+
+
+            <section>
+                <h2>工具化时代</h2>
             </section>
             <section>
-                继续优化。。。 ！！整体效率的提升 代码lint mock json-server test ！！其他 npm run script 统一接口 没有注释 放在readme.md 发布
+                <h3>Lint</h3>
+            </section>
+            <section>
+                <h3>Mock</h3>
+            </section>
+            <section>
+                <h3>Test</h3>
             </section>
             <section>
                 ！！感想 工具化的本质还是工具 工具是为了回答问题 首先要理解问题 这一套是针对Webapp类型大中的项目 小项目使用gulp就很方便，gulp是类似于make的构建工具 gulp api简单 ，尤其和webpack相比，十分钟上手

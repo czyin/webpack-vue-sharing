@@ -440,27 +440,17 @@
                     return !document.body.classList;
                 }
             }, {
-                src: 'libs/reveal.js-3.3.0/plugin/markdown/marked.js',
-                condition: function() {
-                    return !!document.querySelector('[data-markdown]');
-                }
-            }, {
-                src: 'libs/reveal.js-3.3.0/plugin/markdown/markdown.js',
-                condition: function() {
-                    return !!document.querySelector('[data-markdown]');
-                }
-            }, {
                 src: 'libs/reveal.js-3.3.0/plugin/highlight/highlight.js',
-                async: true,
+                // async: true,
                 callback: function() {
                     hljs.initHighlightingOnLoad();
                 }
             }, {
                 src: 'libs/reveal.js-3.3.0/plugin/zoom-js/zoom.js',
-                async: true
+                // async: true
             }, {
                 src: 'libs/reveal.js-3.3.0/plugin/notes/notes.js',
-                async: true
+                // async: true
             }]
         });
     </script>

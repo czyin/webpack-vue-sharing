@@ -422,8 +422,12 @@
         </div>
     </div>
     <script src="/libs/reveal.js-3.3.0/lib/js/head.min.js"></script>
-    <!-- <script src="/libs/reveal.js-3.3.0/plugin/highlight/highlight.js"></script> -->
     <script src="/libs/reveal.js-3.3.0/js/reveal.js"></script>
+    <script src="/libs/reveal.js-3.3.0/plugin/highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/libs/reveal.js-3.3.0/plugin/zoom-js/zoom.js"></script>
+    <script src="/libs/reveal.js-3.3.0/plugin/notes/notes.js"></script>
+
     <script>
         // More info https://github.com/hakimel/reveal.js#configuration
         Reveal.initialize({
@@ -436,11 +440,32 @@
 
             // More info https://github.com/hakimel/reveal.js#dependencies
             // dependencies: [{
+            //     src: 'libs/reveal.js-3.3.0/lib/js/classList.js',
+            //     condition: function() {
+            //         return !document.body.classList;
+            //     }
+            // }, {
+            //     src: 'libs/reveal.js-3.3.0/plugin/markdown/marked.js',
+            //     condition: function() {
+            //         return !!document.querySelector('[data-markdown]');
+            //     }
+            // }, {
+            //     src: 'libs/reveal.js-3.3.0/plugin/markdown/markdown.js',
+            //     condition: function() {
+            //         return !!document.querySelector('[data-markdown]');
+            //     }
+            // }, {
             //     src: 'libs/reveal.js-3.3.0/plugin/highlight/highlight.js',
-            //     // async: true,
+            //     async: true,
             //     callback: function() {
             //         hljs.initHighlightingOnLoad();
             //     }
+            // }, {
+            //     src: 'libs/reveal.js-3.3.0/plugin/zoom-js/zoom.js',
+            //     async: true
+            // }, {
+            //     src: 'libs/reveal.js-3.3.0/plugin/notes/notes.js',
+            //     async: true
             // }]
         });
     </script>

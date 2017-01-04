@@ -55,7 +55,7 @@
             </section>
             <section>
                 <p>Jquery & Bootstrap</p>
-                <img src="images/jquery-bootstrap.png" alt="">
+                <img src="/images/jquery-bootstrap.png" alt="">
                 <!-- 资源管理混乱 -->
                 <!-- 开发迭代和维护成本极高 -->
             </section>
@@ -152,13 +152,13 @@
                     </code></pre>
                 </section>
             </section>
-            <section>
+            <section data-background="#dddddd">
                 <h1>NodeJS / CommonJS</h1>
                 <p class="fragment">exports/require 语法</p>
                 <p class="fragment">NPM</p>
                 <p class="fragment">标准库：文件操作的API等</p>
             </section>
-            <section>
+            <section data-background="#dddddd">
                 <p>CommonJS/Node Modules Example</p>
                 <pre class="fragment"><code class="hljs" contenteditable>
     // moduleA.js
@@ -173,7 +173,7 @@
     var result = multiplyBy2( 4 );
                 </code></pre>
             </section>
-            <section>
+            <section data-background="#dddddd">
                 <h3>前端模块化解决方案</h3>
                 <p class="fragment">AMD/RequireJS</p>
                 <p class="fragment"><strike>CMD/SeaJS</strike></p>
@@ -190,7 +190,7 @@
                 <!-- seajs已死
                 https://github.com/seajs/seajs/issues/1605#issuecomment-149220246 -->
             </section>
-            <section>
+            <section data-background="#dddddd">
                 <p>AMD/RequireJS Example</p>
                 <pre class="fragment"><code class="hljs" contenteditable>
     // moduleA.js
@@ -207,46 +207,59 @@
     requirejs(['moduleA'], function(moduleA) {});
                 </code></pre>
                 <pre class="fragment"><code class="hljs" contenteditable>
-    // index.html
-    <script data-main="main.js" src="lib/require.js"></script>
+    <!-- // index.html
+        <script data-main="main.js" src="lib/require.js"></script>
+    -->
                 </code></pre>
                 <!-- 解释 异步加载 & 动态加载 -->
             </section>
-            <section>
+            <section data-background="#dddddd">
                 <h3>Browserify Example</h3>
                 <pre class="fragment"><code class="hljs" contenteditable>
     $ browserify main.js > bundle.js
                 </code></pre>
                 <pre class="fragment"><code class="hljs" contenteditable>
-    // index.html
-    <script src="bundle.js"></script>
+    <!-- // index.html
+        <script src="bundle.js"></script>
+    -->
                 </code></pre>
             </section>
-            <section>
+            <section data-background="#dddddd">
                 <h3>Webpack Example</h3>
+                <pre class="fragment"><code class="hljs" contenteditable>
+                </code></pre>
+                <pre class="fragment"><code class="hljs" contenteditable>
+                </code></pre>
+                <pre class="fragment"><code class="hljs" contenteditable>
+                </code></pre>
                 <!-- 不够！ CSS文件的模块化没有解决 图片 字体呢？ webpack js模块化 静态资源模块化 性能考虑，处理依赖关系 管理依赖 需要工具 有了Webpack 所有静态资源都是模块 Webpack 默认支持CommonJS & AMD -->
                 <!-- 写法 -->
                 <!-- webpack生成的代码示例 -->
                 <!-- 有了Webpack 所有静态资源都是模块 chunk chunk chunk -->
             </section>
-            <section>
+            <section data-background="#123456">
                 <h2>前端框架／UI组件化</h2>
-                <p class="fragment">AngularJS 1.x/2.0</p>
-                <p class="fragment">React</p>
-                <p class="fragment">Vue</p>
+                <p class="fragment">AngularJS 1.x (star: 54.2k)</p>
+                <p class="fragment">AngularJS 2.x (star: 19.4k)</p>
+                <p class="fragment">React (star: 56.9k)</p>
+                <p class="fragment">Vue 1.x/2.x (star: 38.6k)</p>
+            </section>
+            <section data-background="#123456">
+                Vue Example
+                <pre class="fragment"><code class="hljs" contenteditable>
+                </code></pre>
+            </section>
+            <section data-background="#123456">
+                Vue Component Example
+                <pre class="fragment"><code class="hljs" contenteditable>
+                </code></pre>
+            </section>
+            <section data-background="#123456">
+                单文件组件
+                <img src="/images/vue-component.png" alt="">
             </section>
             <section>
-                Vue 单文件组件的写法
-
-            </section>
-            <section>
-                Webpack
-                Loader
-                Plugin
-                Code splitting
-                HMR
-
-                webpack配置文件
+                Webpack Loader Plugin Code splitting HMR webpack配置文件
             </section>
             <section>
                 目录结构 最早也有，比如压缩js 拼接css gulp 清晰的目录结构 src dist

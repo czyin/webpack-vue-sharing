@@ -86,7 +86,7 @@
             </section>
             <section>
                 <h3>模块实现</h3>
-                <pre class="fragment"><code class="hljs" contenteditable>
+                <pre class="fragment"><code class="hljs">
     // IIFE & Closure
     var foo = (function Module() {
         var something = [1, 2, 3]
@@ -105,7 +105,7 @@
             <section>
                 <h3>模块依赖管理器实现</h3>
                 <section>
-                    <pre class="fragment"><code class="hljs" contenteditable>
+                    <pre class="fragment"><code class="hljs">
     var ModuleManager = (function ModuleManager() {
         var modules = {}
         function define(name, deps, impl) {
@@ -125,7 +125,7 @@
                     </code></pre>
                 </section>
                 <section>
-                    <pre><code class="hljs" contenteditable>
+                    <pre><code class="hljs">
     ModuleManager.define("bar", [], function() {
         function hello(who) {
             return "Let me introduce: " + who
@@ -137,7 +137,7 @@
                     </code></pre>
                 </section>
                 <section>
-                    <pre><code class="hljs" contenteditable>
+                    <pre><code class="hljs">
     ModuleManager.define("foo", ["bar"], function(bar) {
         var hungry = "hippo"
 
@@ -151,7 +151,7 @@
                     </code></pre>
                 </section>
                 <section>
-                    <pre><code class="hljs" contenteditable>
+                    <pre><code class="hljs">
     var bar = ModuleManager.get("bar")
     var foo = ModuleManager.get("foo")
     console.log(bar.hello("hippo")) // Let me introduce: hippo
@@ -172,14 +172,14 @@
             </section>
             <section>
                 <p>CommonJS/Node Modules 示例</p>
-                <pre class="fragment"><code class="hljs" contenteditable>
+                <pre class="fragment"><code class="hljs">
     // moduleA.js
     module.exports = function( value ){
         return value*2;
     }
                 </code></pre>
 
-                <pre class="fragment"><code class="hljs" contenteditable>
+                <pre class="fragment"><code class="hljs">
     // moduleB.js
     var multiplyBy2 = require('./moduleA');
     var result = multiplyBy2( 4 );
@@ -204,7 +204,7 @@
             </section>
             <section>
                 <h3>AMD/RequireJS 示例</h3>
-                <pre class="fragment"><code class="hljs" contenteditable>
+                <pre class="fragment"><code class="hljs">
     // moduleA.js
     define('moduleA', ['jquery', './math.js'], function($, math) {
         //var _ = require('loadsh');
@@ -214,26 +214,22 @@
         return HelloWorldize;
     });
                 </code></pre>
-                <pre class="fragment"><code class="hljs" contenteditable>
+                <pre class="fragment"><code class="hljs">
     // main.js
     requirejs(['moduleA'], function(moduleA) {});
                 </code></pre>
-                <pre class="fragment"><code class="hljs" contenteditable>
-    <!-- // index.html
-        <script data-main="main.js" src="lib/require.js"></script>
-    -->
+                <pre class="fragment lang-html"><code class="hljs">
+    <script data-main="main.js" .src="lib/require.js"></script>
                 </code></pre>
                 <!-- 解释 异步加载 & 动态加载 -->
             </section>
             <section>
                 <h3>Browserify 示例</h3>
-                <pre class="fragment"><code class="hljs" contenteditable>
+                <pre class="fragment"><code class="hljs">
     $ browserify main.js > bundle.js
                 </code></pre>
-                <pre class="fragment"><code class="hljs" contenteditable>
-    <!-- // index.html
-        <script src="bundle.js"></script>
-    -->
+                <pre class="fragment"><code class="hljs">
+    <script .src="bundle.js"></script>
                 </code></pre>
             </section>
             <section>
@@ -257,8 +253,9 @@
             <section>
                 <h3>豪华套餐</h3>
                 <p class="fragment">code splitting</p>
-                <p class="fragment">webpack-dev-middleware</p>
-                <p class="fragment">webpack-dev-middleware / HMR</p>
+                <p class="fragment">webpack-dev-server</p>
+                <p class="fragment">webpack-hot-middleware / HMR</p>
+                <p class="fragment">Tree-shaking</p>
             </section>
             <section>
                 <h3>Webpack 示例</h3>
@@ -281,13 +278,13 @@
             </section>
             <section>
                 <h3>Vue 示例</h3>
-                <pre class="fragment"><code class="hljs" contenteditable>
+                <pre class="fragment"><code class="hljs">
     // html
     <div id="app">
         {{ message }}
     </div>
                 </code></pre>
-                <pre class="fragment"><code class="hljs" contenteditable>
+                <pre class="fragment"><code class="hljs">
     // javascript
     var app = new Vue({
         el: '#app',
@@ -299,7 +296,7 @@
             </section>
             <section>
                 <h3>Vue Component 示例</h3>
-                <pre class="fragment"><code class="hljs" contenteditable>
+                <pre class="fragment"><code class="hljs">
     // 组件注册
     Vue.component('my-component', {
          template: '<div>A custom component!</div>'
@@ -309,12 +306,12 @@
          el: '#example'
     })
                 </code></pre>
-                <pre class="fragment"><code class="hljs" contenteditable>
+                <pre class="fragment"><code class="hljs">
     <div id="example">
         <my-component></my-component>
     </div>
                 </code></pre>
-                <pre class="fragment"><code class="hljs" contenteditable>
+                <pre class="fragment"><code class="hljs">
     <div id="example">
         <div>A custom component!</div>
     </div>
@@ -327,7 +324,7 @@
             <section>
                 <h3>CSS Modules </h3>
                 <section>
-                    <pre><code class="hljs" contenteditable>
+                    <pre><code class="hljs">
     .danger {
         color: red;
     }
@@ -336,12 +333,12 @@
         font-size: 38px;
     }
                     </code></pre>
-                    <pre><code class="hljs" contenteditable>
+                    <pre><code class="hljs">
     <p class="danger big"> css modules example </p>
                     </code></pre>
                 </section>
                 <section>
-                    <pre><code class="hljs" contenteditable>
+                    <pre><code class="hljs">
     .danger_32osj2w27N {
         color: red;
     }
@@ -350,7 +347,7 @@
         font-size: 38px;
     }
                     </code></pre>
-                    <pre><code class="hljs" contenteditable>
+                    <pre><code class="hljs">
     <p class="danger_32osj2w27N big_32osj2w27N"> css modules example </p>
                     </code></pre>
                 </section>

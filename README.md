@@ -14,5 +14,5 @@
 ## 示例
 
 
-## 在线slide
-* https://yinchengzhi.com/slide/webpack-vue-sharing
+<!-- ## 在线slide -->
+<!-- * https://yinchengzhi.com/slide/webpack-vue-sharing -->
